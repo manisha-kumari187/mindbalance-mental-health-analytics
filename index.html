@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindBalance | Mental Health &amp; Behavioral Analytics</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   DESIGN SYSTEM & CSS VARIABLES
+   ========================================================= */
+:root {
+  --bg-app: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F1F5F9;
+  --bg-elevated: #E2E8F0;
+  
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-subtle: #94A3B8;
+  --border: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-focus: #3B82F6;
+
+  /* Brand Accents */
+  --brand: #2563EB;
+  --brand-light: #EFF6FF;
+  --brand-dark: #1D4ED8;
+  
+  /* Status Semantics */
+  --priority-high: #EF4444;
+  --priority-high-bg: #FEF2F2;
+  --priority-high-border: #FCA5A5;
+  
+  --priority-med: #F59E0B;
+  --priority-med-bg: #FFFBEB;
+  --priority-med-border: #FCD34D;
+  
+  --priority-good: #10B981;
+  --priority-good-bg: #ECFDF5;
+  --priority-good-border: #A7F3D0;
+  
+  --indigo: #6366F1;
+  --indigo-light: #EEF2FF;
+  --teal: #0D9488;
+  --teal-light: #F0FDFA;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+[data-theme="dark"] {
+  --bg-app: #0B0F19;
+  --bg-card: #111827;
+  --bg-subtle: #1F2937;
+  --bg-elevated: #374151;
+  
+  --text-main: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --text-subtle: #6B7280;
+  --border: #1F2937;
+  --border-subtle: #111827;
+  --border-focus: #60A5FA;
+
+  --brand: #3B82F6;
+  --brand-light: rgba(59, 130, 246, 0.15);
+  --brand-dark: #60A5FA;
+
+  --priority-high-bg: rgba(239, 68, 68, 0.12);
+  --priority-med-bg: rgba(245, 158, 11, 0.12);
+  --priority-good-bg: rgba(16, 185, 129, 0.12);
+  --indigo-light: rgba(99, 102, 241, 0.15);
+  --teal-light: rgba(13, 148, 136, 0.15);
+}
+
+/* =========================================================
+   GLOBAL RESET & BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* =========================================================
+   HEADER & NAVIGATION
+   ========================================================= */
+.site-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1rem;
+}
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.brand-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+.brand-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.nav-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-subtle);
+}
+.nav-btn.active {
+  color: var(--brand);
+  background: var(--brand-light);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* =========================================================
+   SHARED UI COMPONENTS
+   ========================================================= */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+.card-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn:hover { background: var(--bg-subtle); }
+.btn-primary {
+  background: var(--brand);
+  color: #FFF;
+  border-color: var(--brand);
+}
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+}
+.btn-danger {
+  color: var(--priority-high);
+  border-color: var(--priority-high-border);
+  background: var(--priority-high-bg);
+}
+.btn-danger:hover { background: #FEE2E2; }
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.badge-high {
+  background: var(--priority-high-bg);
+  color: var(--priority-high);
+  border: 1px solid var(--priority-high-border);
+}
+.badge-med {
+  background: var(--priority-med-bg);
+  color: var(--priority-med);
+  border: 1px solid var(--priority-med-border);
+}
+.badge-good {
+  background: var(--priority-good-bg);
+  color: var(--priority-good);
+  border: 1px solid var(--priority-good-border);
+}
+.badge-brand {
+  background: var(--brand-light);
+  color: var(--brand);
+  border: 1px solid rgba(59,130,246,0.25);
+}
+
+/* Informational Disclaimer Banner */
+.disclaimer-banner {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.9rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+/* =========================================================
+   DASHBOARD COCKPIT (THE 4 CORE QUESTIONS)
+   ========================================================= */
+.cockpit-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.signal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.signal-score-num {
+  font-family: var(--font-mono);
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-main);
+  letter-spacing: -0.04em;
+}
+.signal-scale {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-left: 0.35rem;
+}
+
+.focus-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.focus-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  background: var(--bg-card);
+}
+.focus-card.card-high { border-top: 3px solid var(--priority-high); }
+.focus-card.card-med { border-top: 3px solid var(--priority-med); }
+.focus-card.card-good { border-top: 3px solid var(--priority-good); }
+
+/* Quick Action Items */
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.6rem;
+}
+.action-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  color: var(--brand);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   FORM CONTROLS & SLIDERS
+   ========================================================= */
+.control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+.control-label {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.control-val {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand);
+  background: var(--brand-light);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+}
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-elevated);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0.4rem 0 1rem;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Segmented Buttons */
+.segment-group {
+  display: flex;
+  background: var(--bg-subtle);
+  padding: 3px;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+.segment-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.segment-btn.active {
+  background: var(--bg-card);
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+/* =========================================================
+   WHY THIS SCORE? (EXPLAINABLE ATTRIBUTION)
+   ========================================================= */
+.factor-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+}
+.factor-delta {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+.factor-pos { background: var(--priority-good-bg); color: var(--priority-good); }
+.factor-neg { background: var(--priority-high-bg); color: var(--priority-high); }
+
+/* =========================================================
+   DATA TABLE & HISTORY
+   ========================================================= */
+.history-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.84rem;
+}
+.history-table th {
+  background: var(--bg-subtle);
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border);
+}
+.history-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+}
+.history-table tr:last-child td { border-bottom: none; }
+
+/* =========================================================
+   SKILLS & PERSONAL GROWTH MATRIX
+   ========================================================= */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.skill-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  background: var(--bg-card);
+}
+.skill-progress-bar {
+  height: 8px;
+  background: var(--bg-subtle);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0.6rem 0;
+  position: relative;
+}
+.skill-fill-current {
+  height: 100%;
+  background: var(--brand);
+  position: absolute;
+  left: 0;
+}
+.skill-fill-target {
+  height: 100%;
+  background: rgba(59, 130, 246, 0.25);
+  position: absolute;
+  left: 0;
+}
+
+/* =========================================================
+   VIEW VISIBILITY
+   ========================================================= */
+.view-section { display: none; }
+.view-section.active { display: block; animation: fadeIn 0.2s ease-out; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cockpit-grid { grid-template-columns: 1fr; }
+  .focus-cards-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  body { background: #FFF !important; color: #000 !important; }
+  .site-header, .btn, .no-print { display: none !important; }
+  .card { box-shadow: none !important; border: 1px solid #CCC !important; }
+}
+</style>
+</head>
+<body data-theme="light">
+
+<!-- =========================================================
+     SITE HEADER & NAVIGATION
+     ========================================================= -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="brand-group" onclick="switchTab('dashboard'); return false;">
+        <div class="brand-logo">&#10022;</div>
+        <div>
+          <div class="brand-title">MIND BALANCE</div>
+          <div class="brand-subtitle">Mental Health &amp; Behavioral Analytics</div>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" id="tab-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+        <button class="nav-btn" id="tab-assessment" onclick="switchTab('assessment')">Assessment</button>
+        <button class="nav-btn" id="tab-tracking" onclick="switchTab('tracking')">Daily Tracking</button>
+        <button class="nav-btn" id="tab-insights" onclick="switchTab('insights')">Insights &amp; Priorities</button>
+        <button class="nav-btn" id="tab-progress" onclick="switchTab('progress')">Progress &amp; Trends</button>
+        <button class="nav-btn" id="tab-skills" onclick="switchTab('skills')">Skills &amp; Growth</button>
+        <button class="nav-btn" id="tab-whatif" onclick="switchTab('whatif')">What-If</button>
+        <button class="nav-btn" id="tab-report" onclick="switchTab('report')">Report</button>
+      </nav>
+
+      <div class="header-right">
+        <button class="btn btn-sm" onclick="toggleTheme()" title="Toggle Dark/Light Mode">&#9788;</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
+
+  <!-- Non-Medical Informational Disclaimer -->
+  <div class="disclaimer-banner">
+    <div>
+      <strong>Informational Analytics:</strong> MindBalance calculates behavioral and lifestyle signals from your logged habits. This is not a medical diagnosis or clinical treatment tool.
+    </div>
+    <span style="font-size:0.75rem; color:var(--text-subtle); margin-left:1rem; white-space:nowrap;">Local &bull; Private</span>
+  </div>
+
+  <!-- =========================================================
+       1. DASHBOARD VIEW (Answers the 4 Essential Questions)
+       ========================================================= -->
+  <section id="view-dashboard" class="view-section active">
+    
+    <div class="cockpit-grid">
+      
+      <!-- Q1: What is my current state? -->
+      <div class="signal-box">
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">
+            1. Current State
+          </div>
+          <div style="font-size:1rem; font-weight:800; color:var(--text-main); margin-top:0.2rem;">
+            Wellbeing Signal
+          </div>
+          <p class="card-desc">Informational lifestyle equilibrium indicator</p>
+        </div>
+
+        <div style="margin: 1.25rem 0;">
+          <div style="display:flex; align-items:baseline;">
+            <span class="signal-score-num" id="dash-signal-num">7.6</span>
+            <span class="signal-scale">/ 10</span>
+          </div>
+          <div style="margin-top:0.5rem;">
+            <span class="badge badge-good" id="dash-signal-badge">Balanced Resilience</span>
+          </div>
+        </div>
+
+        <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.45;" id="dash-signal-summary">
+          Your restorative sleep and physical activity maintain steady mental bandwidth.
+        </div>
+      </div>
+
+      <!-- Q2: What is my biggest concern? -->
+      <div class="signal-box">
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">
+            2. Biggest Concern
+          </div>
+          <div style="font-size:1rem; font-weight:800; color:var(--text-main); margin-top:0.2rem;">
+            Primary Friction Area
+          </div>
+          <p class="card-desc">Single highest negative driver right now</p>
+        </div>
+
+        <div style="margin: 1.25rem 0;">
+          <div style="font-size:1.15rem; font-weight:800; color:var(--priority-high);" id="dash-concern-title">
+            Recreational Screen Load
+          </div>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;" id="dash-concern-desc">
+            4.5 hrs/day non-work screen time is reducing late-evening melatonin production.
+          </p>
+        </div>
+
+        <button class="btn btn-sm" onclick="switchTab('insights')">View Detailed Breakdown &rarr;</button>
+      </div>
+
+      <!-- Q4: Am I improving? -->
+      <div class="signal-box">
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">
+            4. Trend Status
+          </div>
+          <div style="font-size:1rem; font-weight:800; color:var(--text-main); margin-top:0.2rem;">
+            7-Day Trajectory
+          </div>
+          <p class="card-desc">Historical comparison vs previous week</p>
+        </div>
+
+        <div style="margin: 1.25rem 0;">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="font-size:1.5rem; font-weight:800; color:var(--priority-good);" id="dash-trend-delta">+0.4</span>
+            <span class="badge badge-good" id="dash-trend-badge">Improving (+6%)</span>
+          </div>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:0.35rem;" id="dash-trend-desc">
+            Sleep stability increased by 45 mins over the past 5 logged days.
+          </p>
+        </div>
+
+        <button class="btn btn-sm" onclick="switchTab('progress')">View Trend Charts &rarr;</button>
+      </div>
+
+    </div>
+
+    <!-- Q3: What should I focus on first? (Priority Matrix) -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div>
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em;">
+            3. Action Hierarchy
+          </div>
+          <h3 class="card-title">What to Focus on First</h3>
+        </div>
+        <button class="btn btn-sm" onclick="switchTab('insights')">All Action Plans</button>
+      </div>
+
+      <div class="focus-cards-grid">
+        
+        <!-- High Priority -->
+        <div class="focus-card card-high">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="badge badge-high">Needs Attention Now</span>
+          </div>
+          <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:0.35rem;" id="dash-pri-high-title">Digital Screen Curfew</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;" id="dash-pri-high-action">
+            Stop phone scrolling 45 minutes before sleep to avoid delayed REM recovery.
+          </p>
+        </div>
+
+        <!-- Medium Priority -->
+        <div class="focus-card card-med">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="badge badge-med">Secondary Watch</span>
+          </div>
+          <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:0.35rem;" id="dash-pri-med-title">Focus Block Rest Intervals</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;" id="dash-pri-med-action">
+            Insert 5-minute offline stretches between 50-minute study sessions.
+          </p>
+        </div>
+
+        <!-- Going Well -->
+        <div class="focus-card card-good">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="badge badge-good">Going Well</span>
+          </div>
+          <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:0.35rem;" id="dash-pri-good-title">Daily Physical Activity</h4>
+          <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4;" id="dash-pri-good-action">
+            1.5 hrs of walking and movement supports steady dopamine and stress regulation.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quick Action Recommendations -->
+    <div class="card">
+      <h3 class="card-title" style="margin-bottom:0.75rem;">Today's 3 High-Leverage Actions</h3>
+      <div id="dash-quick-actions">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       2. ASSESSMENT VIEW
+       ========================================================= -->
+  <section id="view-assessment" class="view-section">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem;">
+      
+      <!-- Inputs Column -->
+      <div class="card">
+        <div class="card-header" style="margin-bottom:1.25rem;">
+          <div>
+            <h3 class="card-title">Behavioral &amp; Lifestyle Assessment</h3>
+            <p class="card-desc">Adjust sliders to reflect your current daily routine</p>
+          </div>
+        </div>
+
+        <!-- 1. Sleep -->
+        <div class="control-row">
+          <span class="control-label">Sleep per Night</span>
+          <span class="control-val" id="val-sleep">7.5 hrs</span>
+        </div>
+        <input type="range" class="slider" id="inp-sleep" min="4" max="11" step="0.5" value="7.5" oninput="handleAssessmentChange()">
+
+        <!-- 2. Screen Time -->
+        <div class="control-row">
+          <span class="control-label">Recreational Screen Time</span>
+          <span class="control-val" id="val-screen">4.0 hrs</span>
+        </div>
+        <input type="range" class="slider" id="inp-screen" min="1" max="12" step="0.5" value="4.0" oninput="handleAssessmentChange()">
+
+        <!-- 3. Physical Activity -->
+        <div class="control-row">
+          <span class="control-label">Physical Activity / Movement</span>
+          <span class="control-val" id="val-activity">1.5 hrs</span>
+        </div>
+        <input type="range" class="slider" id="inp-activity" min="0" max="4" step="0.5" value="1.5" oninput="handleAssessmentChange()">
+
+        <!-- 4. Study / Deep Work -->
+        <div class="control-row">
+          <span class="control-label">Deep Work / Study Focus</span>
+          <span class="control-val" id="val-study">4.5 hrs</span>
+        </div>
+        <input type="range" class="slider" id="inp-study" min="1" max="10" step="0.5" value="4.5" oninput="handleAssessmentChange()">
+
+        <!-- 5. Stress Level -->
+        <div class="control-row">
+          <span class="control-label">Perceived Mental Stress</span>
+        </div>
+        <div class="segment-group">
+          <button class="segment-btn" data-stress="Low" onclick="setAssessmentStress('Low')">Low</button>
+          <button class="segment-btn active" data-stress="Medium" onclick="setAssessmentStress('Medium')">Medium</button>
+          <button class="segment-btn" data-stress="High" onclick="setAssessmentStress('High')">High</button>
+        </div>
+
+        <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
+          <button class="btn btn-primary" onclick="saveAssessmentToToday()">Save Today's Assessment</button>
+          <button class="btn" onclick="applyPreset('balanced')">Preset: Balanced</button>
+          <button class="btn" onclick="applyPreset('exam')">Preset: High Load</button>
+        </div>
+      </div>
+
+      <!-- Attribution Column: Why This Score? -->
+      <div>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <div>
+              <h3 class="card-title">Why This Score?</h3>
+              <p class="card-desc">Explainable positive and negative factor contributions</p>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-family:var(--font-mono); font-size:1.6rem; font-weight:800; color:var(--text-main);" id="att-score-num">7.6</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Informational Signal</div>
+            </div>
+          </div>
+
+          <div id="attribution-list">
+            <!-- Dynamic attribution items -->
+          </div>
+        </div>
+
+        <div class="card" style="background:var(--bg-subtle); border-style:dashed;">
+          <h4 style="font-size:0.85rem; font-weight:700; margin-bottom:0.35rem;">Transparent Scoring Logic</h4>
+          <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.45;">
+            Scores are computed from established behavioral hygiene baselines (7.5–8.5h sleep, &le;3h non-work screen, &ge;1h activity, modulated by perceived stress).
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       3. DAILY TRACKING VIEW
+       ========================================================= -->
+  <section id="view-tracking" class="view-section">
+    <div style="display:grid; grid-template-columns:1fr 2fr; gap:1.25rem;">
+      
+      <!-- New Entry Form -->
+      <div class="card">
+        <h3 class="card-title" style="margin-bottom:1rem;">Log Daily Entry</h3>
+        
+        <div style="margin-bottom:0.85rem;">
+          <label class="control-label" style="display:block; margin-bottom:0.25rem;">Date</label>
+          <input type="date" id="track-inp-date" style="width:100%; padding:0.45rem 0.65rem; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--bg-card); color:var(--text-main); font-family:var(--font-sans);">
+        </div>
+
+        <div style="margin-bottom:0.85rem;">
+          <label class="control-label" style="display:block; margin-bottom:0.25rem;">Mood State</label>
+          <select id="track-inp-mood" style="width:100%; padding:0.45rem 0.65rem; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--bg-card); color:var(--text-main); font-family:var(--font-sans);">
+            <option value="Great">Great (Calm &amp; Focused)</option>
+            <option value="Good" selected>Good (Steady)</option>
+            <option value="Neutral">Neutral</option>
+            <option value="Stressed">Stressed / Fatigued</option>
+            <option value="Low">Low Energy</option>
+          </select>
+        </div>
+
+        <div class="control-row">
+          <span class="control-label">Sleep (hours)</span>
+          <span class="control-val" id="track-val-sleep">7.5h</span>
+        </div>
+        <input type="range" class="slider" id="track-inp-sleep" min="4" max="11" step="0.5" value="7.5" oninput="document.getElementById('track-val-sleep').textContent = this.value + 'h'">
+
+        <div class="control-row">
+          <span class="control-label">Screen Time (hours)</span>
+          <span class="control-val" id="track-val-screen">4.0h</span>
+        </div>
+        <input type="range" class="slider" id="track-inp-screen" min="1" max="12" step="0.5" value="4.0" oninput="document.getElementById('track-val-screen').textContent = this.value + 'h'">
+
+        <div class="control-row">
+          <span class="control-label">Physical Activity (hours)</span>
+          <span class="control-val" id="track-val-activity">1.5h</span>
+        </div>
+        <input type="range" class="slider" id="track-inp-activity" min="0" max="4" step="0.5" value="1.5" oninput="document.getElementById('track-val-activity').textContent = this.value + 'h'">
+
+        <div style="margin-bottom:0.85rem;">
+          <label class="control-label" style="display:block; margin-bottom:0.25rem;">Stress Level</label>
+          <select id="track-inp-stress" style="width:100%; padding:0.45rem 0.65rem; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--bg-card); color:var(--text-main); font-family:var(--font-sans);">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:1rem;">
+          <label class="control-label" style="display:block; margin-bottom:0.25rem;">Notes (optional)</label>
+          <input type="text" id="track-inp-notes" placeholder="e.g. Exam prep, late evening walk" style="width:100%; padding:0.45rem 0.65rem; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--bg-card); color:var(--text-main); font-family:var(--font-sans); font-size:0.82rem;">
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;" onclick="submitDailyLog()">Save Daily Entry</button>
+      </div>
+
+      <!-- History Table -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+          <div>
+            <h3 class="card-title">Tracking History</h3>
+            <p class="card-desc">Review previous daily entries stored in your browser</p>
+          </div>
+          <span class="badge badge-brand" id="history-count-badge">0 entries</span>
+        </div>
+
+        <div class="history-table-wrap">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Sleep</th>
+                <th>Screen</th>
+                <th>Activity</th>
+                <th>Stress</th>
+                <th>Score</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       4. INSIGHTS & PRIORITIES VIEW
+       ========================================================= -->
+  <section id="view-insights" class="view-section">
+    <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:1.25rem;">
+      
+      <!-- Problem Identification & Action Plans -->
+      <div>
+        <div class="card">
+          <div class="card-header" style="margin-bottom:1rem;">
+            <div>
+              <h3 class="card-title">Problem Identification &amp; Action Plan</h3>
+              <p class="card-desc">Targeted, data-dependent recommendations for your highest friction points</p>
+            </div>
+          </div>
+
+          <div id="problems-action-list">
+            <!-- Dynamically generated prioritized problem cards -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern Detection (Correlations) -->
+      <div>
+        <div class="card">
+          <div class="card-header" style="margin-bottom:1rem;">
+            <div>
+              <h3 class="card-title">Pattern Detection</h3>
+              <p class="card-desc">Observed behavioral correlations from your history</p>
+            </div>
+          </div>
+
+          <div id="patterns-list">
+            <!-- Correlation cards -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       5. PROGRESS & TRENDS VIEW
+       ========================================================= -->
+  <section id="view-progress" class="view-section">
+    
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <div>
+          <h3 class="card-title">7-Day Wellbeing Trajectory</h3>
+          <p class="card-desc">Daily score progression and stability tracking</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span class="badge badge-good" id="trend-overall-badge">Improving (+0.4)</span>
+        </div>
+      </div>
+
+      <!-- Custom SVG Trend Chart -->
+      <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:1rem; margin-bottom:1.5rem;">
+        <svg id="trend-chart-svg" viewBox="0 0 700 160" style="width:100%; height:160px; overflow:visible;">
+          <!-- Rendered dynamically -->
+        </svg>
+      </div>
+
+      <!-- Dimension Comparison Columns -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem;">
+        
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Sleep Duration</div>
+          <div style="font-family:var(--font-mono); font-size:1.4rem; font-weight:800; color:var(--text-main); margin:0.25rem 0;" id="prog-avg-sleep">7.4h</div>
+          <p style="font-size:0.78rem; color:var(--priority-good); font-weight:600;">+0.6h vs last week (Steady)</p>
+        </div>
+
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Recreational Screen</div>
+          <div style="font-family:var(--font-mono); font-size:1.4rem; font-weight:800; color:var(--text-main); margin:0.25rem 0;" id="prog-avg-screen">3.8h</div>
+          <p style="font-size:0.78rem; color:var(--priority-good); font-weight:600;">-45 min reduction (Optimal)</p>
+        </div>
+
+        <div style="border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Physical Activity</div>
+          <div style="font-family:var(--font-mono); font-size:1.4rem; font-weight:800; color:var(--text-main); margin:0.25rem 0;" id="prog-avg-activity">1.4h</div>
+          <p style="font-size:0.78rem; color:var(--priority-good); font-weight:600;">Consistent active habit</p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =========================================================
+       6. SKILLS GAP & PERSONAL GROWTH VIEW
+       ========================================================= -->
+  <section id="view-skills" class="view-section">
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <div>
+          <h3 class="card-title">Skills Gap &amp; Personal Growth Matrix</h3>
+          <p class="card-desc">Evaluate current vs. target capabilities to identify priority development areas</p>
+        </div>
+        <button class="btn btn-sm btn-primary" onclick="openSkillModal()">+ Add / Update Skill</button>
+      </div>
+
+      <div class="skills-grid" id="skills-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- Targeted Improvement Plan for Highest Priority Gap -->
+    <div class="card" style="border-left: 4px solid var(--brand);">
+      <h3 class="card-title" style="margin-bottom:0.35rem;">High-Priority Skill Growth Roadmap</h3>
+      <p class="card-desc" style="margin-bottom:1rem;">Structured action protocol for your largest skill gap</p>
+      <div id="skills-roadmap-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       7. WHAT-IF SIMULATOR VIEW
+       ========================================================= -->
+  <section id="view-whatif" class="view-section">
+    <div class="card" style="max-width:760px; margin:0 auto;">
+      <div class="card-header" style="margin-bottom:1.25rem;">
+        <div>
+          <h3 class="card-title">What-If Routine Simulator</h3>
+          <p class="card-desc">Simulate habit adjustments to observe projected shifts in your wellbeing signal</p>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr auto 1fr; align-items:center; text-align:center; gap:1.5rem; margin-bottom:1.5rem;">
+        <div style="background:var(--bg-subtle); border:1px solid var(--border); border-radius:var(--radius-md); padding:1rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Current Signal</div>
+          <div style="font-family:var(--font-mono); font-size:2.2rem; font-weight:800; color:var(--text-main);" id="sim-curr-score">7.6</div>
+        </div>
+        <div style="font-size:1.8rem; color:var(--text-subtle);">&rarr;</div>
+        <div style="background:var(--brand-light); border:1px solid var(--brand); border-radius:var(--radius-md); padding:1rem;">
+          <div style="font-size:0.75rem; font-weight:700; color:var(--brand); text-transform:uppercase;">Simulated Signal</div>
+          <div style="font-family:var(--font-mono); font-size:2.2rem; font-weight:800; color:var(--brand);" id="sim-new-score">8.8</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:1.25rem; margin-bottom:1.25rem;">
+        <h4 style="font-size:0.86rem; font-weight:700; margin-bottom:1rem;">Simulate adjustments:</h4>
+
+        <div class="control-row">
+          <span class="control-label">Add Sleep per Night:</span>
+          <span class="control-val" id="sim-val-sleep">+1.0 hr</span>
+        </div>
+        <input type="range" class="slider" id="sim-inp-sleep" min="0" max="3" step="0.5" value="1.0" oninput="runSimulatorRecalc()">
+
+        <div class="control-row">
+          <span class="control-label">Reduce Daily Screen Time by:</span>
+          <span class="control-val" id="sim-val-screen">-1.5 hrs</span>
+        </div>
+        <input type="range" class="slider" id="sim-inp-screen" min="0" max="4" step="0.5" value="1.5" oninput="runSimulatorRecalc()">
+
+        <div class="control-row">
+          <span class="control-label">Increase Daily Physical Movement:</span>
+          <span class="control-val" id="sim-val-activity">+0.5 hr</span>
+        </div>
+        <input type="range" class="slider" id="sim-inp-activity" min="0" max="2" step="0.5" value="0.5" oninput="runSimulatorRecalc()">
+      </div>
+
+      <div style="border-left:3px solid var(--brand); padding-left:0.85rem; margin-bottom:1rem;">
+        <p style="font-size:0.88rem; color:var(--text-main); line-height:1.5;" id="sim-verdict">
+          Adding <strong>1.0 hr of sleep</strong> and reducing <strong>1.5 hrs of phone time</strong> projects a lift of <strong style="color:var(--priority-good);">+1.2 points</strong> to your wellbeing signal.
+        </p>
+      </div>
+
+      <p style="font-size:0.75rem; color:var(--text-subtle);">
+        * Disclaimer: This is an exploratory simulation model based on standard lifestyle weights, not a guarantee of medical or psychological outcomes.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       8. EXECUTIVE REPORT & PRIVACY VIEW
+       ========================================================= -->
+  <section id="view-report" class="view-section">
+    <div class="card" style="max-width:820px; margin:0 auto;">
+      
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid var(--border); padding-bottom:1rem; margin-bottom:1.25rem;">
+        <div>
+          <div style="font-size:0.75rem; font-weight:800; color:var(--brand); text-transform:uppercase; letter-spacing:0.05em;">MindBalance Executive Summary</div>
+          <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-top:0.2rem;">Behavioral &amp; Lifestyle Analytics Report</h2>
+          <div style="font-size:0.8rem; color:var(--text-muted);" id="report-date-str">Generated on August 19, 2026</div>
+        </div>
+        <div class="no-print">
+          <button class="btn btn-primary btn-sm" onclick="window.print()">&#128438; Print / Save PDF</button>
+        </div>
+      </div>
+
+      <!-- Report Summary Grid -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
+        <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md);">
+          <div style="font-size:0.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Overall Signal</div>
+          <div style="font-family:var(--font-mono); font-size:1.8rem; font-weight:800; color:var(--text-main);" id="rep-signal-num">7.6 / 10</div>
+          <span class="badge badge-good" id="rep-signal-badge">Balanced</span>
+        </div>
+
+        <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md);">
+          <div style="font-size:0.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Primary Friction</div>
+          <div style="font-size:1rem; font-weight:800; color:var(--priority-high);" id="rep-concern-title">Recreational Screen</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Requires primary attention</div>
+        </div>
+
+        <div style="background:var(--bg-subtle); padding:1rem; border-radius:var(--radius-md);">
+          <div style="font-size:0.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">7-Day Trajectory</div>
+          <div style="font-size:1rem; font-weight:800; color:var(--priority-good);" id="rep-trend-title">Improving (+6%)</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Consistent 5-day habit streak</div>
+        </div>
+      </div>
+
+      <!-- Executive Recommendations -->
+      <div style="margin-bottom:1.5rem;">
+        <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.6rem;">Key Strategic Recommendations:</h4>
+        <ul style="padding-left:1.25rem; font-size:0.84rem; color:var(--text-main); line-height:1.6;" id="rep-actions-list">
+          <!-- Injected dynamically -->
+        </ul>
+      </div>
+
+      <!-- Data & Privacy Management -->
+      <div class="no-print" style="border-top:1px solid var(--border); padding-top:1.25rem; margin-top:1.5rem;">
+        <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:0.35rem;">Privacy &amp; Data Control</h4>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">
+          All your logged data is saved strictly in your local browser storage. You can export or erase it at any time.
+        </p>
+
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn btn-sm" onclick="exportDataJSON()">&#128190; Export JSON Data</button>
+          <button class="btn btn-sm btn-danger" onclick="resetAllData()">&#128465; Reset &amp; Erase All Stored Data</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- =========================================================
+     JAVASCRIPT CORE LOGIC ENGINE
+     ========================================================= -->
+<script>
+/* ---------------------------------------------------------
+   1. CORE CONSTANTS & STORAGE KEYS
+   --------------------------------------------------------- */
+const STORAGE_KEYS = {
+  HISTORY: 'mindbalance_history_logs_v2',
+  ASSESSMENT: 'mindbalance_current_assessment_v2',
+  SKILLS: 'mindbalance_skills_matrix_v2',
+  THEME: 'mindbalance_theme_pref'
+};
+
+// Seed sample data if first load
+const SAMPLE_HISTORY = [
+  { date: '2026-08-13', mood: 'Neutral', sleep: 6.0, screen: 5.5, activity: 0.5, stress: 'High', score: 5.4, notes: 'Late assignment deadline' },
+  { date: '2026-08-14', mood: 'Stressed', sleep: 6.5, screen: 5.0, activity: 1.0, stress: 'High', score: 6.1, notes: 'Exam revision' },
+  { date: '2026-08-15', mood: 'Good', sleep: 7.0, screen: 4.5, activity: 1.5, stress: 'Medium', score: 6.9, notes: 'Weekend break' },
+  { date: '2026-08-16', mood: 'Great', sleep: 8.0, screen: 3.5, activity: 2.0, stress: 'Low', score: 8.5, notes: 'Outdoor walk & rest' },
+  { date: '2026-08-17', mood: 'Good', sleep: 7.5, screen: 4.0, activity: 1.5, stress: 'Medium', score: 7.6, notes: 'Focused study' },
+  { date: '2026-08-18', mood: 'Good', sleep: 7.5, screen: 3.5, activity: 1.5, stress: 'Medium', score: 7.8, notes: 'Curfew maintained' },
+  { date: '2026-08-19', mood: 'Great', sleep: 8.0, screen: 3.0, activity: 1.5, stress: 'Low', score: 8.6, notes: 'Steady routine' }
+];
+
+const DEFAULT_SKILLS = [
+  { id: 'focus', name: 'Deep Work & Concentration', current: 3, target: 5, category: 'Academic', focusPlan: 'Use 50m Pomodoro intervals with full notifications muted.' },
+  { id: 'sleep', name: 'Sleep Schedule Consistency', current: 4, target: 5, category: 'Wellness', focusPlan: 'Set consistent bedtime window within 30-minute margin.' },
+  { id: 'stress', name: 'Stress & Cognitive Recovery', current: 2, target: 4, category: 'Resilience', focusPlan: 'Practice 4-7-8 breathing and daily 20-min evening walks.' },
+  { id: 'time', name: 'Time & Habit Management', current: 3, target: 4, category: 'Productivity', focusPlan: 'Plan top 3 daily priorities each morning before screen usage.' }
+];
+
+let appState = {
+  currentAssessment: { sleep: 7.5, screen: 4.0, activity: 1.5, study: 4.5, stress: 'Medium' },
+  history: [],
+  skills: []
+};
+
+/* ---------------------------------------------------------
+   2. DETERMINISTIC WELLBEING SCORING CALCULATION
+   --------------------------------------------------------- */
+function computeWellbeingScore(sleep, screen, activity, study, stress) {
+  let base = 6.0;
+
+  // Sleep (optimal: 7.5 - 9.0h)
+  let dSleep = 0;
+  if (sleep >= 7.5 && sleep <= 9.0) dSleep = 0.9;
+  else if (sleep < 7.5) dSleep = -((7.5 - sleep) * 0.45);
+  else dSleep = 0.4;
+
+  // Screen Time (optimal: <= 3.0h)
+  let dScreen = 0;
+  if (screen <= 3.0) dScreen = 0.7;
+  else if (screen <= 5.0) dScreen = -((screen - 3.0) * 0.3);
+  else dScreen = -(0.6 + (screen - 5.0) * 0.35);
+
+  // Physical Activity (optimal: >= 1.0h)
+  let dAct = 0;
+  if (activity >= 1.5) dAct = 0.6;
+  else if (activity >= 0.5) dAct = 0.2;
+  else dAct = -0.4;
+
+  // Study/Work focus balance
+  let dStudy = 0;
+  if (study >= 3.0 && study <= 6.0) dStudy = 0.3;
+  else if (study < 2.0) dStudy = -0.2;
+  else dStudy = 0.0;
+
+  // Stress modulation
+  let dStress = stress === 'Low' ? 0.6 : (stress === 'High' ? -0.9 : 0.0);
+
+  let total = Math.max(1.0, Math.min(10.0, base + dSleep + dScreen + dAct + dStudy + dStress));
+
+  return {
+    total: parseFloat(total.toFixed(1)),
+    dSleep: parseFloat(dSleep.toFixed(2)),
+    dScreen: parseFloat(dScreen.toFixed(2)),
+    dAct: parseFloat(dAct.toFixed(2)),
+    dStudy: parseFloat(dStudy.toFixed(2)),
+    dStress: parseFloat(dStress.toFixed(2))
+  };
+}
+
+/* ---------------------------------------------------------
+   3. PROBLEM IDENTIFICATION & PRIORITY SYSTEM
+   --------------------------------------------------------- */
+function evaluatePriorities(data) {
+  const { sleep, screen, activity, study, stress } = data;
+  const issues = [];
+  const strengths = [];
+
+  // Evaluate Sleep
+  if (sleep < 6.5) {
+    issues.push({ id: 'sleep', priority: 'High', title: 'Severe Sleep Deficit', desc: `${sleep}h per night is below cognitive recovery thresholds.`, action: 'Advance bedtime by 45 minutes and avoid screens in bed.' });
+  } else if (sleep < 7.5) {
+    issues.push({ id: 'sleep', priority: 'Medium', title: 'Sub-Optimal Sleep Duration', desc: `${sleep}h is slightly below the 7.5h recommended baseline.`, action: 'Aim for 30 minutes earlier bedtime tonight.' });
+  } else {
+    strengths.push({ id: 'sleep', title: 'Restorative Sleep Foundation', desc: `${sleep}h supports healthy memory consolidation and neuro-recovery.` });
+  }
+
+  // Evaluate Screen Time
+  if (screen >= 5.0) {
+    issues.push({ id: 'screen', priority: 'High', title: 'High Recreational Screen Exposure', desc: `${screen}h daily recreational phone usage fragments attention.`, action: 'Implement a digital curfew 45 minutes before sleep.' });
+  } else if (screen > 3.5) {
+    issues.push({ id: 'screen', priority: 'Medium', title: 'Elevated Screen Time', desc: `${screen}h phone time may introduce mild digital fatigue.`, action: 'Turn on Grayscale mode or set a 30m social app timer.' });
+  } else {
+    strengths.push({ id: 'screen', title: 'Controlled Digital Boundary', desc: `${screen}h screen time leaves ample offline bandwidth for focus.` });
+  }
+
+  // Evaluate Stress
+  if (stress === 'High') {
+    issues.push({ id: 'stress', priority: 'High', title: 'Elevated Mental Stress', desc: 'Perceived stress reduces working memory and emotional regulation.', action: 'Take two 5-minute 4-7-8 breathing breaks during study sessions.' });
+  } else if (stress === 'Medium') {
+    issues.push({ id: 'stress', priority: 'Medium', title: 'Moderate Cognitive Load', desc: 'Manageable tension; watch for cumulative fatigue buildup.', action: 'Ensure 15 minutes of quiet downtime before sleep.' });
+  } else {
+    strengths.push({ id: 'stress', title: 'Low Perceived Stress', desc: 'Calm nervous system facilitates flow state and mental clarity.' });
+  }
+
+  // Evaluate Physical Activity
+  if (activity < 0.5) {
+    issues.push({ id: 'activity', priority: 'Medium', title: 'Low Physical Movement', desc: 'Sedentary routine hampers blood flow and dopamine balance.', action: 'Take a brisk 20-minute walk before afternoon work.' });
+  } else {
+    strengths.push({ id: 'activity', title: 'Active Physical Vitality', desc: `${activity}h of daily movement supports neurogenesis and mood stability.` });
+  }
+
+  // Sort issues: High first, then Medium
+  issues.sort((a, b) => (a.priority === 'High' ? -1 : 1));
+
+  return { issues, strengths };
+}
+
+/* ---------------------------------------------------------
+   4. PATTERN DETECTION (CORRELATIONS)
+   --------------------------------------------------------- */
+function analyzePatterns(history) {
+  if (history.length < 3) {
+    return [
+      { text: 'Log 3 or more daily entries to enable automated behavioral correlation detection.' }
+    ];
+  }
+
+  const patterns = [];
+
+  // Low sleep vs High stress correlation
+  const lowSleepDays = history.filter(h => h.sleep < 7.0);
+  const lowSleepHighStress = lowSleepDays.filter(h => h.stress === 'High').length;
+  if (lowSleepDays.length > 0 && (lowSleepHighStress / lowSleepDays.length) >= 0.5) {
+    patterns.push({
+      title: 'Sleep & Stress Sensitivity',
+      text: `On ${Math.round((lowSleepHighStress / lowSleepDays.length) * 100)}% of days with under 7h sleep, your stress was rated High. Prioritizing 7.5h sleep acts as your strongest buffer.`
+    });
+  }
+
+  // Screen time vs score correlation
+  const highScreenDays = history.filter(h => h.screen >= 4.5);
+  if (highScreenDays.length > 0) {
+    const avgHighScreenScore = (highScreenDays.reduce((a, b) => a + b.score, 0) / highScreenDays.length).toFixed(1);
+    patterns.push({
+      title: 'Digital Screen Friction',
+      text: `Days with &ge;4.5h screen time averaged a wellbeing score of ${avgHighScreenScore}, compared to higher scores on lower-screen days.`
+    });
+  }
+
+  // Activity impact
+  const activeDays = history.filter(h => h.activity >= 1.5);
+  if (activeDays.length > 0) {
+    patterns.push({
+      title: 'Movement Energy Catalyst',
+      text: `Days with 1.5h+ physical movement consistently correlate with better reported mood states and steady focus.`
+    });
+  }
+
+  if (patterns.length === 0) {
+    patterns.push({
+      title: 'Steady Equilibrium',
+      text: 'Your logged metrics show stable daily habits without sharp friction spikes.'
+    });
+  }
+
+  return patterns;
+}
+
+/* ---------------------------------------------------------
+   5. UI RENDERING & SYNCHRONIZATION
+   --------------------------------------------------------- */
+function refreshAllViews() {
+  const ass = appState.currentAssessment;
+  const result = computeWellbeingScore(ass.sleep, ass.screen, ass.activity, ass.study, ass.stress);
+  const { issues, strengths } = evaluatePriorities(ass);
+  const patterns = analyzePatterns(appState.history);
+
+  // 1. DASHBOARD
+  document.getElementById('dash-signal-num').textContent = result.total.toFixed(1);
+  const badge = document.getElementById('dash-signal-badge');
+  if (result.total >= 8.0) {
+    badge.textContent = 'Thriving Balance';
+    badge.className = 'badge badge-good';
+  } else if (result.total >= 6.5) {
+    badge.textContent = 'Balanced Resilience';
+    badge.className = 'badge badge-good';
+  } else if (result.total >= 5.0) {
+    badge.textContent = 'Moderate Strain';
+    badge.className = 'badge badge-med';
+  } else {
+    badge.textContent = 'High Overload';
+    badge.className = 'badge badge-high';
+  }
+
+  // Top concern
+  if (issues.length > 0) {
+    document.getElementById('dash-concern-title').textContent = issues[0].title;
+    document.getElementById('dash-concern-desc').textContent = issues[0].desc;
+  } else {
+    document.getElementById('dash-concern-title').textContent = 'No Critical Concerns';
+    document.getElementById('dash-concern-desc').textContent = 'All lifestyle indicators are within healthy thresholds.';
+  }
+
+  // Action Hierarchy cards on Dashboard
+  const highIssue = issues.find(i => i.priority === 'High') || issues[0] || { title: 'Routine Maintenance', action: 'Continue your balanced sleep and digital curfew habits.' };
+  const medIssue = issues.find(i => i.priority === 'Medium') || { title: 'Downtime Intervals', action: 'Ensure short 5-minute stretch breaks during prolonged study.' };
+  const topStrength = strengths[0] || { title: 'Daily Consistency', desc: 'Steady routine tracking.' };
+
+  document.getElementById('dash-pri-high-title').textContent = highIssue.title;
+  document.getElementById('dash-pri-high-action').textContent = highIssue.action || highIssue.desc;
+
+  document.getElementById('dash-pri-med-title').textContent = medIssue.title;
+  document.getElementById('dash-pri-med-action').textContent = medIssue.action || medIssue.desc;
+
+  document.getElementById('dash-pri-good-title').textContent = topStrength.title;
+  document.getElementById('dash-pri-good-action').textContent = topStrength.desc;
+
+  // Quick Action List on Dashboard
+  const quickActionsEl = document.getElementById('dash-quick-actions');
+  const actionItems = [];
+  issues.forEach(i => { if (i.action) actionItems.push(i.action); });
+  if (actionItems.length === 0) actionItems.push('Maintain current 7.5h sleep schedule.', 'Keep daily recreational phone time under 3.5 hours.');
+
+  quickActionsEl.innerHTML = actionItems.slice(0, 3).map((act, idx) => `
+    <div class="action-item">
+      <div class="action-num">${idx + 1}</div>
+      <div style="font-size:0.84rem; color:var(--text-main); font-weight:600;">${act}</div>
+    </div>
+  `).join('');
+
+  // 2. ASSESSMENT & ATTRIBUTION
+  document.getElementById('val-sleep').textContent = ass.sleep.toFixed(1) + ' hrs';
+  document.getElementById('val-screen').textContent = ass.screen.toFixed(1) + ' hrs';
+  document.getElementById('val-activity').textContent = ass.activity.toFixed(1) + ' hrs';
+  document.getElementById('val-study').textContent = ass.study.toFixed(1) + ' hrs';
+  document.getElementById('att-score-num').textContent = result.total.toFixed(1);
+
+  const attList = document.getElementById('attribution-list');
+  const factorData = [
+    { name: 'Sleep Restoration', val: `${ass.sleep}h`, delta: result.dSleep, desc: ass.sleep >= 7.5 ? 'Optimal circadian recovery' : 'Sleep debt' },
+    { name: 'Recreational Screen', val: `${ass.screen}h`, delta: result.dScreen, desc: ass.screen <= 3.5 ? 'Healthy digital boundaries' : 'High digital cognitive load' },
+    { name: 'Physical Movement', val: `${ass.activity}h`, delta: result.dAct, desc: ass.activity >= 1.0 ? 'Active dopamine & circulation' : 'Low physical activity' },
+    { name: 'Perceived Stress', val: ass.stress, delta: result.dStress, desc: `${ass.stress} perceived tension` }
+  ];
+
+  attList.innerHTML = factorData.map(f => `
+    <div class="factor-row">
+      <div>
+        <strong style="font-size:0.86rem; color:var(--text-main);">${f.name} (${f.val})</strong>
+        <div style="font-size:0.75rem; color:var(--text-muted);">${f.desc}</div>
+      </div>
+      <div class="factor-delta ${f.delta >= 0 ? 'factor-pos' : 'factor-neg'}">
+        ${f.delta >= 0 ? '+' : ''}${f.delta.toFixed(1)}
+      </div>
+    </div>
+  `).join('');
+
+  // 3. INSIGHTS & ACTION PLANS
+  const problemContainer = document.getElementById('problems-action-list');
+  let problemHTML = '';
+
+  if (issues.length > 0) {
+    problemHTML += issues.map(iss => `
+      <div class="card" style="border-left:4px solid ${iss.priority === 'High' ? 'var(--priority-high)' : 'var(--priority-med)'}; margin-bottom:0.85rem; padding:1.1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+          <h4 style="font-size:0.95rem; font-weight:700;">${iss.title}</h4>
+          <span class="badge ${iss.priority === 'High' ? 'badge-high' : 'badge-med'}">${iss.priority} Priority</span>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.6rem;">${iss.desc}</p>
+        <div style="background:var(--bg-subtle); padding:0.65rem 0.85rem; border-radius:var(--radius-sm); font-size:0.82rem;">
+          <strong style="color:var(--brand);">Recommended Action:</strong> ${iss.action}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  if (strengths.length > 0) {
+    problemHTML += strengths.map(st => `
+      <div class="card" style="border-left:4px solid var(--priority-good); margin-bottom:0.85rem; padding:1.1rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+          <h4 style="font-size:0.95rem; font-weight:700;">${st.title}</h4>
+          <span class="badge badge-good">Going Well</span>
+        </div>
+        <p style="font-size:0.82rem; color:var(--text-muted);">${st.desc}</p>
+      </div>
+    `).join('');
+  }
+  problemContainer.innerHTML = problemHTML;
+
+  // Patterns
+  const patternsContainer = document.getElementById('patterns-list');
+  patternsContainer.innerHTML = patterns.map(p => `
+    <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:0.9rem; margin-bottom:0.65rem;">
+      ${p.title ? `<strong style="font-size:0.86rem; color:var(--text-main); display:block; margin-bottom:0.2rem;">${p.title}</strong>` : ''}
+      <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.45;">${p.text}</p>
+    </div>
+  `).join('');
+
+  // 4. HISTORY TABLE & TREND CHART
+  renderHistoryTable();
+  renderTrendChart();
+
+  // 5. SKILLS MATRIX
+  renderSkillsMatrix();
+
+  // 6. WHAT-IF
+  runSimulatorRecalc();
+
+  // 7. REPORT
+  document.getElementById('rep-signal-num').textContent = `${result.total.toFixed(1)} / 10`;
+  document.getElementById('rep-signal-badge').textContent = result.total >= 7.0 ? 'Balanced' : 'Needs Optimization';
+  document.getElementById('rep-concern-title').textContent = issues.length > 0 ? issues[0].title : 'None';
+  document.getElementById('rep-actions-list').innerHTML = actionItems.map(a => `<li>${a}</li>`).join('');
+  document.getElementById('report-date-str').textContent = `Generated on ${new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}`;
+}
+
+/* ---------------------------------------------------------
+   6. HISTORY & PROGRESS CHART
+   --------------------------------------------------------- */
+function renderHistoryTable() {
+  const tbody = document.getElementById('history-table-body');
+  document.getElementById('history-count-badge').textContent = `${appState.history.length} logged entries`;
+
+  if (appState.history.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:2rem;">No logged entries yet.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = appState.history.slice(-10).reverse().map((entry, idx) => `
+    <tr>
+      <td style="font-weight:600;">${entry.date}</td>
+      <td><span class="badge ${entry.mood === 'Great' || entry.mood === 'Good' ? 'badge-good' : 'badge-med'}">${entry.mood}</span></td>
+      <td>${entry.sleep}h</td>
+      <td>${entry.screen}h</td>
+      <td>${entry.activity}h</td>
+      <td>${entry.stress}</td>
+      <td style="font-family:var(--font-mono); font-weight:700;">${entry.score.toFixed(1)}</td>
+      <td>
+        <button class="btn btn-sm btn-danger" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="deleteHistoryEntry(${appState.history.length - 1 - idx})">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderTrendChart() {
+  const svg = document.getElementById('trend-chart-svg');
+  const h = appState.history.slice(-7);
+  if (h.length < 2) {
+    svg.innerHTML = `<text x="350" y="80" text-anchor="middle" fill="var(--text-muted)" font-size="14">Log at least 2 days to render trajectory</text>`;
+    return;
+  }
+
+  const width = 700;
+  const height = 160;
+  const padX = 45;
+  const padY = 25;
+
+  const minScore = 4.0;
+  const maxScore = 10.0;
+
+  const points = h.map((d, i) => {
+    const x = padX + (i / (h.length - 1)) * (width - padX * 2);
+    const y = height - padY - ((d.score - minScore) / (maxScore - minScore)) * (height - padY * 2);
+    return { x, y, score: d.score, date: d.date.slice(5) };
+  });
+
+  const pathD = points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ');
+
+  let svgHTML = `
+    <!-- Grid lines -->
+    <line x1="${padX}" y1="${padY}" x2="${width - padX}" y2="${padY}" stroke="var(--border)" stroke-dasharray="3,3" />
+    <line x1="${padX}" y1="${height / 2}" x2="${width - padX}" y2="${height / 2}" stroke="var(--border)" stroke-dasharray="3,3" />
+    <line x1="${padX}" y1="${height - padY}" x2="${width - padX}" y2="${height - padY}" stroke="var(--border)" />
+    
+    <!-- Path line -->
+    <path d="${pathD}" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  `;
+
+  points.forEach(p => {
+    svgHTML += `
+      <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--bg-card)" stroke="var(--brand)" stroke-width="2.5" />
+      <text x="${p.x}" y="${p.y - 10}" text-anchor="middle" font-size="11" font-family="var(--font-mono)" font-weight="700" fill="var(--text-main)">${p.score.toFixed(1)}</text>
+      <text x="${p.x}" y="${height - 6}" text-anchor="middle" font-size="10" fill="var(--text-muted)">${p.date}</text>
+    `;
+  });
+
+  svg.innerHTML = svgHTML;
+
+  // Averages
+  const avgSleep = (h.reduce((a,b) => a + b.sleep, 0) / h.length).toFixed(1);
+  const avgScreen = (h.reduce((a,b) => a + b.screen, 0) / h.length).toFixed(1);
+  const avgActivity = (h.reduce((a,b) => a + b.activity, 0) / h.length).toFixed(1);
+
+  document.getElementById('prog-avg-sleep').textContent = `${avgSleep}h`;
+  document.getElementById('prog-avg-screen').textContent = `${avgScreen}h`;
+  document.getElementById('prog-avg-activity').textContent = `${avgActivity}h`;
+}
+
+/* ---------------------------------------------------------
+   7. SKILLS MATRIX & PERSONAL GROWTH
+   --------------------------------------------------------- */
+function renderSkillsMatrix() {
+  const container = document.getElementById('skills-container');
+  const skills = appState.skills;
+
+  // Compute gaps and priority
+  const analyzed = skills.map(s => {
+    const gap = Math.max(0, s.target - s.current);
+    let priority = 'Low';
+    if (gap >= 2) priority = 'High';
+    else if (gap === 1) priority = 'Medium';
+    return { ...s, gap, priority };
+  });
+
+  // Sort by gap
+  analyzed.sort((a, b) => b.gap - a.gap);
+
+  container.innerHTML = analyzed.map(s => `
+    <div class="skill-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <span style="font-size:0.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">${s.category}</span>
+          <h4 style="font-size:0.95rem; font-weight:700; color:var(--text-main);">${s.name}</h4>
+        </div>
+        <span class="badge ${s.priority === 'High' ? 'badge-high' : (s.priority === 'Medium' ? 'badge-med' : 'badge-good')}">${s.priority} Priority</span>
+      </div>
+
+      <div class="skill-progress-bar">
+        <div class="skill-fill-target" style="width: ${(s.target / 5) * 100}%;"></div>
+        <div class="skill-fill-current" style="width: ${(s.current / 5) * 100}%;"></div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--text-muted); font-family:var(--font-mono);">
+        <span>Current: Level ${s.current}/5</span>
+        <span style="color:var(--brand); font-weight:700;">Target: Level ${s.target}/5 (Gap: +${s.gap})</span>
+      </div>
+
+      <div style="margin-top:0.75rem; display:flex; gap:0.35rem;">
+        <button class="btn btn-sm" style="flex:1;" onclick="adjustSkill('${s.id}', 1)">+ Level Up</button>
+        <button class="btn btn-sm" style="flex:1;" onclick="adjustSkill('${s.id}', -1)">- Decrement</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Top Roadmap
+  const topGap = analyzed[0];
+  if (topGap && topGap.gap > 0) {
+    document.getElementById('skills-roadmap-content').innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+        <strong style="font-size:0.95rem; color:var(--brand);">${topGap.name} (Gap: +${topGap.gap} Levels)</strong>
+        <span class="badge badge-high">High Priority Focus</span>
+      </div>
+      <p style="font-size:0.84rem; color:var(--text-main); line-height:1.5;">
+        ${topGap.focusPlan || 'Focus on consistent daily micro-habits and track weekly milestones.'}
+      </p>
+    `;
+  } else {
+    document.getElementById('skills-roadmap-content').innerHTML = `
+      <p style="font-size:0.84rem; color:var(--priority-good); font-weight:600;">
+        All tracked skills are at target levels. Outstanding mastery!
+      </p>
+    `;
+  }
+}
+
+function adjustSkill(id, delta) {
+  const skill = appState.skills.find(s => s.id === id);
+  if (skill) {
+    skill.current = Math.max(1, Math.min(5, skill.current + delta));
+    saveState();
+    refreshAllViews();
+  }
+}
+
+function openSkillModal() {
+  const name = prompt('Enter skill name (e.g., Focus Blocks, Communication, Time Management):');
+  if (!name) return;
+  const current = parseInt(prompt('Current level (1-5):', '2') || '2', 10);
+  const target = parseInt(prompt('Target level (1-5):', '4') || '4', 10);
+  const focusPlan = prompt('Short action plan to improve:', 'Dedicate 20 minutes daily.') || '';
+
+  const newSkill = {
+    id: 'skill_' + Date.now(),
+    name,
+    current: Math.max(1, Math.min(5, current)),
+    target: Math.max(1, Math.min(5, target)),
+    category: 'Growth',
+    focusPlan
+  };
+
+  appState.skills.push(newSkill);
+  saveState();
+  refreshAllViews();
+}
+
+/* ---------------------------------------------------------
+   8. WHAT-IF SIMULATOR
+   --------------------------------------------------------- */
+function runSimulatorRecalc() {
+  const ass = appState.currentAssessment;
+  const cur = computeWellbeingScore(ass.sleep, ass.screen, ass.activity, ass.study, ass.stress);
+
+  const addSleep = parseFloat(document.getElementById('sim-inp-sleep').value);
+  const cutScreen = parseFloat(document.getElementById('sim-inp-screen').value);
+  const addAct = parseFloat(document.getElementById('sim-inp-activity').value);
+
+  document.getElementById('sim-val-sleep').textContent = `+${addSleep.toFixed(1)} hr (${(ass.sleep + addSleep).toFixed(1)}h total)`;
+  document.getElementById('sim-val-screen').textContent = `-${cutScreen.toFixed(1)} hrs (${Math.max(1, ass.screen - cutScreen).toFixed(1)}h total)`;
+  document.getElementById('sim-val-activity').textContent = `+${addAct.toFixed(1)} hr (${(ass.activity + addAct).toFixed(1)}h total)`;
+
+  const newRes = computeWellbeingScore(
+    Math.min(10, ass.sleep + addSleep),
+    Math.max(1, ass.screen - cutScreen),
+    ass.activity + addAct,
+    ass.study,
+    ass.stress === 'High' ? 'Medium' : ass.stress
+  );
+
+  document.getElementById('sim-curr-score').textContent = cur.total.toFixed(1);
+  document.getElementById('sim-new-score').textContent = newRes.total.toFixed(1);
+
+  const delta = (newRes.total - cur.total).toFixed(1);
+  document.getElementById('sim-verdict').innerHTML = `
+    Adding <strong>${addSleep.toFixed(1)} hr of sleep</strong>, reducing <strong>${cutScreen.toFixed(1)} hrs of screen time</strong>, and adding <strong>${addAct.toFixed(1)} hr of movement</strong> projects a lift of <strong style="color:var(--priority-good);">${delta >= 0 ? '+' : ''}${delta} points</strong> to your wellbeing signal.
+  `;
+}
+
+/* ---------------------------------------------------------
+   9. EVENT HANDLERS & PERSISTENCE
+   --------------------------------------------------------- */
+function handleAssessmentChange() {
+  appState.currentAssessment.sleep = parseFloat(document.getElementById('inp-sleep').value);
+  appState.currentAssessment.screen = parseFloat(document.getElementById('inp-screen').value);
+  appState.currentAssessment.activity = parseFloat(document.getElementById('inp-activity').value);
+  appState.currentAssessment.study = parseFloat(document.getElementById('inp-study').value);
+
+  saveState();
+  refreshAllViews();
+}
+
+function setAssessmentStress(level) {
+  appState.currentAssessment.stress = level;
+  document.querySelectorAll('#view-assessment .segment-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-stress') === level);
+  });
+  saveState();
+  refreshAllViews();
+}
+
+function applyPreset(type) {
+  if (type === 'balanced') {
+    appState.currentAssessment = { sleep: 8.0, screen: 2.5, activity: 1.5, study: 4.5, stress: 'Low' };
+  } else if (type === 'exam') {
+    appState.currentAssessment = { sleep: 6.0, screen: 5.0, activity: 0.5, study: 7.0, stress: 'High' };
+  }
+  syncAssessmentInputs();
+  saveState();
+  refreshAllViews();
+}
+
+function syncAssessmentInputs() {
+  const ass = appState.currentAssessment;
+  document.getElementById('inp-sleep').value = ass.sleep;
+  document.getElementById('inp-screen').value = ass.screen;
+  document.getElementById('inp-activity').value = ass.activity;
+  document.getElementById('inp-study').value = ass.study;
+
+  document.querySelectorAll('#view-assessment .segment-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-stress') === ass.stress);
+  });
+}
+
+function saveAssessmentToToday() {
+  const ass = appState.currentAssessment;
+  const res = computeWellbeingScore(ass.sleep, ass.screen, ass.activity, ass.study, ass.stress);
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  const existingIdx = appState.history.findIndex(h => h.date === todayStr);
+  const entry = {
+    date: todayStr,
+    mood: res.total >= 7.5 ? 'Great' : (res.total >= 6.0 ? 'Good' : 'Stressed'),
+    sleep: ass.sleep,
+    screen: ass.screen,
+    activity: ass.activity,
+    stress: ass.stress,
+    score: res.total,
+    notes: 'Saved from Assessment Studio'
+  };
+
+  if (existingIdx >= 0) {
+    appState.history[existingIdx] = entry;
+  } else {
+    appState.history.push(entry);
+  }
+
+  saveState();
+  refreshAllViews();
+  alert('Assessment saved to today\'s history successfully.');
+}
+
+function submitDailyLog() {
+  const date = document.getElementById('track-inp-date').value || new Date().toISOString().slice(0, 10);
+  const mood = document.getElementById('track-inp-mood').value;
+  const sleep = parseFloat(document.getElementById('track-inp-sleep').value);
+  const screen = parseFloat(document.getElementById('track-inp-screen').value);
+  const activity = parseFloat(document.getElementById('track-inp-activity').value);
+  const stress = document.getElementById('track-inp-stress').value;
+  const notes = document.getElementById('track-inp-notes').value || '';
+
+  const res = computeWellbeingScore(sleep, screen, activity, 4.0, stress);
+
+  const entry = { date, mood, sleep, screen, activity, stress, score: res.total, notes };
+  
+  // Replace or add
+  const idx = appState.history.findIndex(h => h.date === date);
+  if (idx >= 0) appState.history[idx] = entry;
+  else appState.history.push(entry);
+
+  appState.history.sort((a, b) => a.date.localeCompare(b.date));
+
+  saveState();
+  refreshAllViews();
+  alert('Daily entry logged successfully.');
+}
+
+function deleteHistoryEntry(idx) {
+  if (confirm('Delete this historical entry?')) {
+    appState.history.splice(idx, 1);
+    saveState();
+    refreshAllViews();
+  }
+}
+
+function exportDataJSON() {
+  const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `mindbalance_data_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAllData() {
+  if (confirm('Are you sure you want to delete and reset all stored assessments and tracking history?')) {
+    localStorage.removeItem(STORAGE_KEYS.HISTORY);
+    localStorage.removeItem(STORAGE_KEYS.ASSESSMENT);
+    localStorage.removeItem(STORAGE_KEYS.SKILLS);
+    appState.history = [...SAMPLE_HISTORY];
+    appState.skills = [...DEFAULT_SKILLS];
+    appState.currentAssessment = { sleep: 7.5, screen: 4.0, activity: 1.5, study: 4.5, stress: 'Medium' };
+    saveState();
+    syncAssessmentInputs();
+    refreshAllViews();
+    alert('All data has been reset to fresh baseline.');
+  }
+}
+
+function switchTab(tabId) {
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+
+  const btn = document.getElementById(`tab-${tabId}`);
+  if (btn) btn.classList.add('active');
+
+  const sec = document.getElementById(`view-${tabId}`);
+  if (sec) sec.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleTheme() {
+  const curr = document.body.getAttribute('data-theme');
+  const target = curr === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', target);
+  localStorage.setItem(STORAGE_KEYS.THEME, target);
+}
+
+/* ---------------------------------------------------------
+   10. STORAGE INIT & LOAD
+   --------------------------------------------------------- */
+function saveState() {
+  localStorage.setItem(STORAGE_KEYS.ASSESSMENT, JSON.stringify(appState.currentAssessment));
+  localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(appState.history));
+  localStorage.setItem(STORAGE_KEYS.SKILLS, JSON.stringify(appState.skills));
+}
+
+function loadState() {
+  try {
+    const savedAss = localStorage.getItem(STORAGE_KEYS.ASSESSMENT);
+    if (savedAss) appState.currentAssessment = JSON.parse(savedAss);
+
+    const savedHist = localStorage.getItem(STORAGE_KEYS.HISTORY);
+    if (savedHist) appState.history = JSON.parse(savedHist);
+    else appState.history = [...SAMPLE_HISTORY];
+
+    const savedSkills = localStorage.getItem(STORAGE_KEYS.SKILLS);
+    if (savedSkills) appState.skills = JSON.parse(savedSkills);
+    else appState.skills = [...DEFAULT_SKILLS];
+
+    const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+    if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
+
+  } catch(e) {
+    console.error('Failed to load local storage state', e);
+  }
+}
+
+// Initial Boot
+window.addEventListener('DOMContentLoaded', () => {
+  loadState();
+  syncAssessmentInputs();
+  document.getElementById('track-inp-date').value = new Date().toISOString().slice(0, 10);
+  refreshAllViews();
+});
+</script>
+</body>
+</html>

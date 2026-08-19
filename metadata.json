@@ -1,0 +1,6 @@
+{
+  "name": "MindBalance",
+  "description": "MindBalance: Mental Health & Behavioral Analytics platform tracking lifestyle patterns, explainable priority signals, personalized action roadmaps, skills growth, and progress trends.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

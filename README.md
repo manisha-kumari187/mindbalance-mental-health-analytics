@@ -131,6 +131,4 @@ Final score is clamped to a 1.0–10.0 range. The server-side `/api/ml/predict` 
 
 ---
 
-## 📸 Screenshots
 
-> Add UI screenshots here once available — recommended: Dashboard, Assessment, Insights, Progress, What-If Simulator.

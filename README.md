@@ -127,7 +127,7 @@ The Wellbeing Signal starts from a **baseline of 6.0** and applies weighted delt
 
 Final score is clamped to a 1.0–10.0 range. The server-side `/api/ml/predict` route applies a separate **logistic-style fatigue risk function** combined with rule-based persona clustering (e.g. *"Digital Strain & Sleep Deficit"*, *"Peak Cognitive Flow"*) driven by the same underlying inputs.
 
-> Both models are **transparent, weight-based statistical rules** — not machine-learning models trained on external datasets — by design, so every output stays explainable.
+> Both models are **transparent, weight-based statistical rules**--not machine-learning models trained on external datasets — by design, so every output stays explainable.
 
 ---
 
